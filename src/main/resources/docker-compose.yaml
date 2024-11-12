@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:latest
-    container_name: postgres-container
+    container_name: WRMDB
     environment:
       POSTGRES_DB: WRM
       POSTGRES_USER: postgres
@@ -13,12 +11,12 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - springboot-network
+      - app-network
 
 volumes:
   postgres_data:
     driver: local
 
 networks:
-  springboot-network:
+  app-network:
     driver: bridge
