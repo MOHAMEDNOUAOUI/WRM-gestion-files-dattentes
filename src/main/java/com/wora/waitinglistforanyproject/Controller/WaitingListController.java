@@ -17,7 +17,6 @@ public class WaitingListController {
 
     @PostMapping
     public ResponseDTO createWaitingList(@RequestBody CreateListDTO createListDTO){
-        ResponseDTO response =waitingListService.createWaitingList(createListDTO);
-        return response;
+        return waitingListService.createWaitingList(createListDTO);
     }
 }
