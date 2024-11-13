@@ -1,21 +1,35 @@
 services:
-  postgres:
-    image: postgres:latest
-    container_name: WRMDB
+  db:
+    image: mysql:latest
+    container_name: mysql
     environment:
-      POSTGRES_DB: WRM
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: root
+      MYSQL_DATABASE: WRM
+      MYSQL_ROOT_PASSWORD : root1234
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - my-db:/var/lib/mysql
     networks:
       - app-network
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root1234
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+
+
+
 volumes:
-  postgres_data:
-    driver: local
+  my-db:
 
 networks:
   app-network:
