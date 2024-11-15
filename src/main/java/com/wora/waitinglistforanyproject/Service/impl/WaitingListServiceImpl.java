@@ -45,29 +45,16 @@ public class WaitingListServiceImpl implements WaitingListService {
     @Override
     public List<WaitingListAlgoResponse> getAllWaitinglists() {
         return waitingListRepository.findAll().stream().map(waitingList -> {
-            WaitingListAlgoResponse response = new WaitingListAlgoResponse();
-            response.setId(waitingList.getId());
-            response.setDate(waitingList.getDate());
-            response.setAlgorithm(waitingList.getAlgorithm());
-            response.setCapacity(waitingList.getCapacity());
-
-            switch (waitingList.getAlgorithm()){
-                case "FIFO" :
-                    List<VisitorDTOforFIFO> fifoList = algorithm.FIFO(waitingList.getVisitLists());
-                    response.setVisitLists(fifoList);
-                    break;
-                case "SJF":
-                    List<VisitorDTOforSJF> sjfList =  algorithm.SJF(waitingList.getVisitLists());
-                    response.setVisitLists(sjfList);
-                    break;
-                case "PR":
-                    List<VisitorDTOforPriority> prList =  algorithm.PR(waitingList.getVisitLists());
-                    response.setVisitLists(prList);
-                    break;
-            }
+            WaitingListAlgoResponse response = waitingListMapper.toALgoResponse(waitingList);
+            List<?> visitList = algorithm.checkAlgorithm(waitingList);
+            response.setVisitLists(visitList);
             return response;
         }).toList();
     }
+    
+
+
+
 
 
 }

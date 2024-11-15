@@ -4,6 +4,7 @@ import com.wora.waitinglistforanyproject.DTO.VisitorList.VisitorDTOforFIFO;
 import com.wora.waitinglistforanyproject.DTO.VisitorList.VisitorDTOforPriority;
 import com.wora.waitinglistforanyproject.DTO.VisitorList.VisitorDTOforSJF;
 import com.wora.waitinglistforanyproject.Entity.VisitList;
+import com.wora.waitinglistforanyproject.Entity.WaitingList;
 import com.wora.waitinglistforanyproject.Mapper.VisitorListMapper;
 import com.wora.waitinglistforanyproject.Repository.VisitorListRepository;
 import lombok.AllArgsConstructor;
@@ -49,6 +50,22 @@ public class Algorithm {
                 .sorted(Comparator.comparingInt(VisitList::getEstimatedProcessingTime))
                 .map(visitorListMapper::toSJF)
                 .toList();
+    }
+
+    public List<?> checkAlgorithm(WaitingList waitingList) {
+        switch (waitingList.getAlgorithm()){
+            case "FIFO" :
+                List<VisitorDTOforFIFO> fifoList = this.FIFO(waitingList.getVisitLists());
+                return fifoList;
+            case "SJF":
+                List<VisitorDTOforSJF> sjfList =  this.SJF(waitingList.getVisitLists());
+                return sjfList;
+            case "PR":
+                List<VisitorDTOforPriority> prList =  this.PR(waitingList.getVisitLists());
+                return prList;
+            default:
+                return new ArrayList<>();
+        }
     }
 
 }

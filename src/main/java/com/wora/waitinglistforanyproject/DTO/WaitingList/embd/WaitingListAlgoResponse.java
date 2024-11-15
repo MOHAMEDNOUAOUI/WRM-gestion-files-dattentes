@@ -12,6 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 public class WaitingListAlgoResponse {
     private Long id;
+    private String taux_de_satisfaction;
+    private String temps_moyen_dattente;
+    private String rotation_des_visiteurs;
     private LocalDate date;
     private String algorithm;
     private Integer capacity;
