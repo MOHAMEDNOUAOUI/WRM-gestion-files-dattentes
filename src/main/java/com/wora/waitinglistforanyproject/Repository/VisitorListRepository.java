@@ -1,8 +1,11 @@
 package com.wora.waitinglistforanyproject.Repository;
 
-import com.wora.waitinglistforanyproject.Entity.Embd.EmbedableIds;
+import com.wora.waitinglistforanyproject.Entity.Embd.EmbeddableIds;
 import com.wora.waitinglistforanyproject.Entity.VisitList;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface VisitorListRepository extends JpaRepository<VisitList , EmbedableIds> {
+import java.util.List;
+
+public interface VisitorListRepository extends JpaRepository<VisitList , EmbeddableIds> {
+    List<VisitList> findALlByOrderByArrivalTimeAsc();
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,15 +20,15 @@ public class WaitingList {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "date")
+    @Column(name = "date" , nullable = false)
     private LocalDate date;
 
-    @Column(name = "algorithme")
-    private String algorithme;
+    @Column(name = "algorithm" , nullable = false)
+    private String algorithm;
 
-    @Column(name = "capacity")
+    @Column(name = "capacity" , nullable = false)
     private Integer capacity;
 
     @OneToMany(mappedBy = "waitingList" , fetch = FetchType.EAGER)
-    private Set<VisitList> visitLists;
+    private List<VisitList> visitLists;
 }

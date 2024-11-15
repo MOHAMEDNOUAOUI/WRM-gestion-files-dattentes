@@ -1,14 +1,12 @@
 package com.wora.waitinglistforanyproject.Entity;
 
 
-import com.wora.waitinglistforanyproject.Entity.Embd.EmbedableIds;
+import com.wora.waitinglistforanyproject.Entity.Embd.EmbeddableIds;
 import com.wora.waitinglistforanyproject.Entity.Enum.VisiteurStatus;
 import jakarta.persistence.*;
-import jdk.jfr.DataAmount;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.repository.NoRepositoryBean;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -17,36 +15,37 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "VisitList")
+@Table(name = "visit_list")
 public class VisitList {
     @EmbeddedId
-    private EmbedableIds embedableIds;
+    private EmbeddableIds embeddableIds;
 
-    @Column(name = "arrivalTime")
+    @Column(name = "arrival_time", nullable = false)
     private LocalDateTime arrivalTime;
 
-    @Column(name = "startTime")
+    @Column(name = "start_time")
     private LocalTime startTime;
 
-    @Column(name = "endTime")
+    @Column(name = "end_time")
     private LocalTime endTime;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private VisiteurStatus status;
 
     //(applicable pour l’algorithme SJF).
-    @Column(name = "estimatedProcessingTime")
+    @Column(name = "estimated_processing_time")
     private Integer estimatedProcessingTime;
 
     //(applicable pour l’algorithme HPF)
     @Column(name = "priority")
     private Integer priority;
 
-    @ManyToOne(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
-    @MapsId("visitor_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("visitorId")
     private Visitor visitor;
 
-    @MapsId("waitinglist_id")
-    @ManyToOne(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    @MapsId("waitingListId")
+    @ManyToOne(fetch = FetchType.EAGER)
     private WaitingList waitingList;
 }

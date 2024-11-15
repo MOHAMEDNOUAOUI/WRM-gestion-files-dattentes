@@ -13,18 +13,7 @@ spring:
 server:
   port: 8081
 
-
 #attributes for the application WRM
-
-waitingList:
+waiting-list:
   algorithm: FIFO
   capacity: 16
-
-
-algorithms:
-  - name: FIFO
-    class: SomeClass
-  - name: PR
-    class: SomeClass
-  - name: SJF
-    class: SomeClass

@@ -5,13 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class WaitingListembd {
+@NoArgsConstructor
+public class WaitingListAlgoResponse {
     private Long id;
     private LocalDate date;
-    private String algorithme;
+    private String algorithm;
     private Integer capacity;
+    private List<?> visitLists;
 }
